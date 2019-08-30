@@ -18,6 +18,12 @@ package br.com.dmsec.hecsplunk;
 
 import java.io.IOException;
 
+
+import com.google.gson.Gson;
+
+
+import br.com.dmsec.hecsplunk.model.Event;
+
 /**
  * The {@code Receiver} class represents a named index and unnamed index
  * receivers.
@@ -43,6 +49,11 @@ public class Receiver {
      */
     public void submit(String data) {
         submit(null, null, data);
+    }
+    
+    public void submit(Event data) {
+    	Gson gson = new Gson();
+    	submit(null,null,gson.toJson(data));
     }
 
     /**

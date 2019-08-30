@@ -1,8 +1,13 @@
 package br.com.dmsec.hecsplunk;
 
-import java.util.Date;
+import java.util.ArrayList;
+
+import java.util.List;
 
 import com.google.gson.Gson;
+
+import br.com.dmsec.hecsplunk.model.DataStructure;
+import br.com.dmsec.hecsplunk.model.Event;
 
 /**
  * Hello world!
@@ -22,27 +27,35 @@ public class App
        
         Service service = Service.connect(loginArgs);
         
-        Date date = new Date();
-        long epochTime = date.getTime();
         
-        Args eventArgs2 = new Args();
-        eventArgs2.put("A", "A");
-        eventArgs2.put("B", "B");
+        //Teste final
         
-        Gson aux = new Gson();
+        List<DataStructure> listData = new ArrayList<DataStructure>();
         
-        Args eventArgs = new Args();
+        DataStructure data1 = new DataStructure();
+        data1.setCod("COD01");
+        data1.setDescription("ABCD");
         
-        eventArgs.put("time", epochTime);
-        eventArgs.put("sourcetype", "_json");
-        eventArgs.put("event",aux.toJson(eventArgs2));
+        DataStructure data2 = new DataStructure();
+        data2.setCod("COD02");
+        data2.setDescription("JKLM");
         
+        listData.add(data1);
+        listData.add(data2);
+        
+        
+        Event ev = new Event("HECSplunk", "INFO",listData);
+        
+        Gson gson = new Gson();
+        
+        Args arg = new Args();
+        arg.put("event", gson.toJson(ev));
         // Submit an event over HTTP
         Receiver myIndex = new Receiver(service);
+               
+        //myIndex.submit(eventArgs, dados.toJson(eventArgs));
         
-        Gson dados = new Gson();
-        System.out.println(dados.toJson(eventArgs));
-        
-        myIndex.submit(eventArgs, dados.toJson(eventArgs));
+        //myIndex.submit(gson.toJson(ev));
+        myIndex.submit(gson.toJson(arg));
     }
 }
