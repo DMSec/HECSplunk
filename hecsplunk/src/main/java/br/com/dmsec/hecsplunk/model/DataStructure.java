@@ -2,6 +2,10 @@ package br.com.dmsec.hecsplunk.model;
 
 public class DataStructure {
 	
+	
+	
+	//Imṕlementar mais informaçoes
+	
 	public String cod;
 	public String description;
 
@@ -17,6 +21,12 @@ public class DataStructure {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+	@Override
+	public String toString() {
+		return "DataStructure";
+	}
+	
+	
 	
 	
 	

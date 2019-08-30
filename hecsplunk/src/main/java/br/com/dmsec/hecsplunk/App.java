@@ -30,7 +30,7 @@ public class App
         
         //Teste final
         
-        List<DataStructure> listData = new ArrayList<DataStructure>();
+        
         
         DataStructure data1 = new DataStructure();
         data1.setCod("COD01");
@@ -40,11 +40,10 @@ public class App
         data2.setCod("COD02");
         data2.setDescription("JKLM");
         
-        listData.add(data1);
-        listData.add(data2);
         
         
-        Event ev = new Event("HECSplunk", "INFO",listData);
+        Event ev = new Event("HECSplunk", "INFO",data1);
+        Event ev2 = new Event("HECSplunk", "ERROR",data1);
         
         Gson gson = new Gson();
         
@@ -57,5 +56,10 @@ public class App
         
         //myIndex.submit(gson.toJson(ev));
         myIndex.submit(gson.toJson(arg));
+        
+        
+        Args arg2 = new Args();
+        arg2.put("event", gson.toJson(ev2));
+        myIndex.submit(gson.toJson(arg2));
     }
 }
